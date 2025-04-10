@@ -2,12 +2,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>JSP - Hello World</title>
+    <title>servlet 학습</title>
 </head>
 <body>
-<h1><%= "Hello World!" %>
-</h1>
-<br/>
-<a href="hello-servlet">Hello Servlet</a>
+<h1>servlet</h1>
+<div>
+    <ul>
+        <li> <a href="life-cycle">생명주기</a> </li>
+        <li> <a href="/chap02/index.html">파라미터</a> </li>
+        <li> <a href="/chap03/index.html">exception 확인</a> </li>
+        <li> <a href="chap04/index.html">쿠키와 세션</a> </li>
+        <li> <a href="chap05/index.html">포워드와 리다이렉트</a> </li>
+        <li> <a href="/auth">auth filter 확인</a> </li>
+    </ul>
+</div>
 </body>
 </html>
