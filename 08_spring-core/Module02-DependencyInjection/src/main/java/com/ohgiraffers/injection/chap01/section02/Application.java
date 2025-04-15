@@ -22,15 +22,19 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
  *   3. 유지보수성 향상: 의존성 변경 시 코드 수정 최소화.
  *      - 예: NaverPayGateway에서 KakaoPayGateway로 변경해도 PaymentService 수정 불필요.
  *
- * - 주의: 동일 타입의 Bean 충돌 가능성
+ *   - 주의: 동일 타입의 Bean 충돌 가능성
+ *
  *   - 현재 PaymentInterface를 구현한 KakaoPayGateway와 NaverPayGateway가 모두 @Component로 등록된 경우:
  *     - Spring이 PaymentService에 주입할 Bean을 결정하지 못해 NoUniqueBeanDefinitionException 발생.
  *     - 예: PaymentService 생성 시 "어떤 PaymentInterface를 주입해야 할지" 모호함.
+ *
  *   - 해결 방법:
  *     1. @Qualifier: 특정 Bean을 이름으로 지정 (예: @Qualifier("naverPayGateway")).
  *     2. @Primary: 기본으로 사용할 Bean 지정.
  *     3. 단일 구현체 사용: 불필요한 구현체의 @Component 제거.
- * - 결론: 의존성 주입은 Spring의 핵심 기능으로, 컴포넌트 스캔과 함께 사용 시 더욱 강력해짐.
+ *
+ *   - 결론: 의존성 주입은 Spring의 핵심 기능으로, 컴포넌트 스캔과 함께 사용 시 더욱 강력해짐.
+ *
  */
 public class Application {
     public static void main(String[] args) {

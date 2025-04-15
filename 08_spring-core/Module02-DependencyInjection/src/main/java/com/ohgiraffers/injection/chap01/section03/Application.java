@@ -33,6 +33,7 @@ public class Application {
          * - 주의: 의존성 많으면 생성자 길어질 수 있음.
          * - 예: KakaoPayGateway가 paymentGatewayConstructor에 주입됨.
          */
+
         PaymentServiceConstructor constructorService = context.getBean(PaymentServiceConstructor.class);
         constructorService.processPayment("constructor 200", 200.0);
 
@@ -47,6 +48,7 @@ public class Application {
          * - 주의: 주입 누락 시 null 위험, 불변성 보장 불가.
          * - 예: KakaoPayGateway가 setPaymentGateway()로 paymentGatewaySetter에 주입됨.
          */
+
         PaymentServiceSetter setterService = context.getBean(PaymentServiceSetter.class);
         setterService.processPayment("setter 300", 300.0);
 

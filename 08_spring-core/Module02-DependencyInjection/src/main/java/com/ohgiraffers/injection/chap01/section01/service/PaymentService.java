@@ -13,7 +13,8 @@ import org.springframework.stereotype.Service;
  *  - bean: 이름 paymentService
  * */
 @Service
-public class PaymentService {
+public class
+PaymentService {
     private final KaKaoPayGateway paymentGateway;
 
     @Autowired

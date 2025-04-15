@@ -16,9 +16,6 @@ public class PaymentService {
         this.payGateway = new NaverPayGateway();
     }
 
-
-
-
     public boolean processPayment(String orderId, double amount) {
         System.out.println("결제 처리를 시작합니다. 주문id : "+orderId + ", 금액 : "+ amount);
         /*
