@@ -103,18 +103,21 @@ public class FirstController {
 
     /* 5. @RequestBody를 이용하는 방법
 
-해당 어노테이션은 http 본문 자체를 읽는 부분을 모델로 변환시켜 주는 어노테이션이다.
-출력해보면 쿼리스트링 형태의 문자열이 전송된다.
-JSON으로 전달하는 경우 Jackson의 컨버터로 자동 파싱하여 사용할 수 있다.
-주로 RestAPI작성 시 많이 사용되며, 일반적인 form 전송을 할 때는 거의 사용하지 않는다.
-추가적으로 헤더에 대한 정보도
-@RequestHeader 어노테이션을 이용해서 가져올 수 있다.
-@CookieValue를 이용해서 쿠키 정보도 쉽게 불러올 수 있다.
-*/
+    해당 어노테이션은 http 본문 자체를 읽는 부분을 모델로 변환시켜 주는 어노테이션이다.
+    출력해보면 쿼리스트링 형태의 문자열이 전송된다.
+    JSON으로 전달하는 경우 Jackson의 컨버터로 자동 파싱하여 사용할 수 있다.
+    주로 RestAPI 작성 시 많이 사용되며, 일반적인 form 전송을 할 때는 거의 사용하지 않는다.
+
+    추가적으로 헤더에 대한 정보도
+    @RequestHeader 어노테이션을 이용해서 가져올 수 있다.
+    @CookieValue를 이용해서 쿠키 정보도 쉽게 불러올 수 있다.
+    */
+
     @PostMapping("body")
     public void bodyTest(@RequestBody String body,
                          @RequestHeader("content-type") String contentType,
-                         @CookieValue(value="JSESSIONID", required = false) String sessionId) throws UnsupportedEncodingException {
+                         @CookieValue(value="JSESSIONID", required = false) String sessionId) throws UnsupportedEncodingException
+    {
         System.out.println(contentType);
         System.out.println(sessionId);
         System.out.println(body);
