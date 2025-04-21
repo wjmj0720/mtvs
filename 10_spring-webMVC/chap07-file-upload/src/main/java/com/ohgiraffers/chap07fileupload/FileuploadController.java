@@ -6,7 +6,6 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,21 +19,20 @@ import java.util.UUID;
 
 public class FileuploadController {
 
-    private ResourceLoader resourceLoader;
+    private ResourceLoader resourceLoader; //리소스를 읽어오는 도구(interface) : classpath, 파일 시스템, URL 등에서 파일을 읽어오게 해주는 도우미
 
-    @Autowired
+    @Autowired //생성자 주입 : 불변성, 의존성이 명확
     public FileuploadController(ResourceLoader resourceLoader) {
         this.resourceLoader = resourceLoader;
-    }
-
-
+    } //생성자
 
     @PostMapping("single-file")
     public String singleFileUpload(@RequestParam MultipartFile singleFile, String singleFileDescription, Model model) throws IOException {
         System.out.println("singleFile " + singleFile);
         System.out.println("singleFileDescription " + singleFileDescription);
-
-
+    //@RequestParam MultipartFile singleFile : 업로드된 파일을 받는 매개변수, 클라이언트가 보낸 <input type="file" name="singleFile"> 요소의 데이터를 받아옴
+    //String singleFileDescription : 파일과 함께 전송되는 설명 텍스트를 받는 매개변수, 일반적인 form 데이터고, 별도로 어노테이션 없어도 잘 매핑됨
+    //Model model : View에 데이터를 전달할 때 사용하는 Spring의 Model 객체
         Resource resource = resourceLoader.getResource("classpath:static/img/single"); //리소스 경로 참조할 수 있도록 resourceLoader 사용,
         String filePath = null;
         if(!resource.exists()) {
@@ -44,6 +42,7 @@ public class FileuploadController {
             filePath = file.getAbsolutePath();
         }else{
             filePath = resourceLoader.getResource("classpath:static/img/single").getFile().getAbsolutePath();//존재할 시
+            //경로를 리소스 객체로 가져옴, getAbsolutePath(): 절대경로를 문자열로 가져옴
         }
 
         String originFileName = singleFile.getOriginalFilename(); //원본파일 이름을 가져옴 ex)원본이름.png

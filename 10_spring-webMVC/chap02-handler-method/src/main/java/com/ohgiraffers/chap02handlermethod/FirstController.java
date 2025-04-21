@@ -18,7 +18,7 @@ import java.util.Map;
 public class FirstController {
 
     @GetMapping("regist")
-    public void regist(){
+    public void regist(){ //뷰를 반환 -> 응답페이지의 뷰 이름과 메소드의 이름과 같다면 굳이 반환타입을 적어줄 필요가 없다. (void사용 이유)
     }
 
     @PostMapping("regist")
@@ -28,7 +28,7 @@ public class FirstController {
         int categoryCode = Integer.parseInt(request.getParameter("categoryCode"));
         String message = name+ "을(를) 신규 메뉴 목록의 "+ categoryCode + "번 카테고리에" + price + "원으로 등록하였습니다";
         System.out.println(message);
-        model.addAttribute("message", message);
+        model.addAttribute("message", message); //컨트롤러에서 뷰로 키/밸류 데이터 전달
         return "first/messagePrinter";
     }
 
@@ -39,8 +39,8 @@ public class FirstController {
 
     @PostMapping("modify")
     public String modifyMenu(Model model,
-                             @RequestParam(name = "modifyName",required = false)String modifyNam,
-                             @RequestParam(required = false)String modifyPrice){
+                             @RequestParam(name = "modifyName",required = false)String modifyNam, //매개변수가 없다면 -> null (modifyName,modifyPrice)
+                             @RequestParam(required = false)String modifyPrice){ //name = "modifyName" 임의로 이름 설정
         String message = modifyNam + "의 가격을 " +modifyPrice +"원으로 수정합니다.";
         model.addAttribute("message", message);
         return "first/messagePrinter";
@@ -61,7 +61,8 @@ public class FirstController {
     }
 
     @PostMapping("search")
-    public String searchMenu(@ModelAttribute("menu") MenuDTO menu){ //@ModelAttribute("menu") --> Model model이랑 model.addAttribute("message", message); 생략가능
+    public String searchMenu(@ModelAttribute("menu") MenuDTO menu){
+        //@ModelAttribute("menu") --> Model model이랑 model.addAttribute("message", message); 생략가능 -> DTO에 있는 값과 동일하게 바인딩 시켜줌, DTO구조랑 똑같이 만들면 편하게 사용가능
         System.out.println(menu);
         return "first/searchResult";
     }
@@ -96,7 +97,7 @@ public class FirstController {
 
     @GetMapping("logout2")
     public String logout2(SessionStatus status){
-       // 현재 컨트롤러 세션에 있는 모든 정보를 제거한다.
+       // 리다이렉트는 안되고 현재 컨트롤러 세션에 있는 모든 정보를 제거한다.
         status.setComplete();
         return "first/loginResult";
     }

@@ -29,14 +29,15 @@ public class ClassMappingTestController {
 
     /*
      * 3. path value (= 서블릿의 pathvariable)
-     * */
+     */
     @GetMapping("/detail/{orderNo}") //이름 정의
-    public String selectOrderDetail(@PathVariable("orderNo") String orderNo, Model model) { //orderNO라는 키 값을 읽어와서 String orderNo에 넣어줌, 위에 쓴 키값을 무조건 써줘야됨->아니면 오류
+    public String selectOrderDetail(@PathVariable("orderNo") String orderNo, Model model) {
+        //orderNO라는 키 값을 읽어와서 String orderNo에 넣어줌, 위에 쓴 키값을 무조건 써줘야됨->아니면 오류
         model.addAttribute("message", orderNo);
         return "mappingResult";
     }
 
-    @RequestMapping//참조만, 실제사요ㅕㅇx
+    @RequestMapping//참조만, 실제사용x
     public String otherRequest(Model model) {
         model.addAttribute("message", "order 요청이 들어왔는데 아직 기능은 준비하지 않음");
         return "mappingResult";

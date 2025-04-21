@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class ExceptionHandlerController {
     @GetMapping("controller-null")
     public String nullPointerExceptionTest(){
-        String str = null;
-        System.out.println(str.charAt(0));
+        String str = null; //문자열을 null로
+        System.out.println(str.charAt(0)); //문자열의 첫번째 문자 (인덱스 0)을 조회 -> Null 값이므로 NullPointerException 오류 발생
 
         return "/";
     }
@@ -36,7 +36,9 @@ public class ExceptionHandlerController {
     public String memberRegistException(Model model, MemberRegistException ex){ //매개변수로 전달 받음
         System.out.println("controller 레벨의 exception 처리");
         model.addAttribute("exception", ex);
-        return "error/memberRegist";
+        return "error/memberRegist"; //(궁금) URL 매핑? -> main.html 보면 페이지로 넘어가서 경로 설정한건가 -> MainController 보면 main.html로 가게 설정해둔듯?
+        //->지금까지는 컨트롤러가 직접 뷰이름을 반환했지만 이번에는 main.html 랜더링 이후 버튼으로 요청 트리거 = 이전에는 Model, ModelAndView에 데이터를 전달했지만
+        // 이번에는 데이터 전달이 따로 없고 버튼으로 요청만 호출함
     }
 
 }
