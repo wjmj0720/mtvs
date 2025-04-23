@@ -1,0 +1,7 @@
+POST http://localhost:8080/board/
+Content-Type: application/json
+
+{
+"boardContent": "여기에 게시글 내용을 입력하세요.",
+"boardTitle": "여기에 게시글 제목을 입력하세요."
+}

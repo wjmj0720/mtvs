@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시글 등록</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        textarea {
+            min-height: 200px;
+            resize: vertical;
+        }
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+        }
+        .btn:hover {
+            opacity: 0.9;
+        }
+        .error-message {
+            color: #dc3545;
+            font-size: 0.9em;
+            margin-top: 5px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>게시글 등록</h1>
+        
+        <div id="registForm">
+            <div class="form-group">
+                <label for="boardTitle">제목</label>
+                <input type="text" id="boardTitle" name="boardTitle" required>
+                <div class="error-message" id="titleError">제목을 입력해주세요.</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="boardContent">내용</label>
+                <textarea id="boardContent" name="boardContent" required></textarea>
+                <div class="error-message" id="contentError">내용을 입력해주세요.</div>
+            </div>
+            
+            <div class="buttons">
+                <a href="/board" class="btn btn-secondary">취소</a>
+                <button id="submitBtn" class="btn btn-primary">등록하기</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('submitBtn').addEventListener('click', function() {
+            const titleInput = document.getElementById('boardTitle');
+            const contentInput = document.getElementById('boardContent');
+            const titleError = document.getElementById('titleError');
+            const contentError = document.getElementById('contentError');
+            
+            let isValid = true;
+            
+            // 제목 유효성 검사
+            if (!titleInput.value.trim()) {
+                titleError.style.display = 'block';
+                isValid = false;
+            } else {
+                titleError.style.display = 'none';
+            }
+            
+            // 내용 유효성 검사
+            if (!contentInput.value.trim()) {
+                contentError.style.display = 'block';
+                isValid = false;
+            } else {
+                contentError.style.display = 'none';
+            }
+            
+            if (isValid) {
+                // 데이터 준비
+                const boardData = {
+                    boardName: titleInput.value.trim(),
+                    boardContent: contentInput.value.trim()
+                };
+                
+                // 서버로 데이터 전송
+                fetch('/board/regist', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(boardData)
+                })
+                .then(response => {
+                    if (response.ok) {
+                        return response.text();
+                    }
+                    throw new Error('등록 실패');
+                })
+                .then(data => {
+                    alert(data);
+                    window.location.href = '/board';
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('게시글 등록에 실패했습니다.');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
